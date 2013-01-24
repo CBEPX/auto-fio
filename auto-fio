@@ -1,0 +1,18 @@
+#!/bin/bash
+
+do_test () {
+	export IODEPTH=$2
+	export IOTYPE=$1
+	res=`fio auto.ini`
+}
+
+if test -x `which fio`;
+then
+	for iodepth in `seq 1 32` 48 64 96 128 192 256;
+	do
+		do_test randread $iodepth
+		do_test randwrite $iodepth
+	done
+else
+	echo fio not found, please install fio and edit the auto.ini
+fi
