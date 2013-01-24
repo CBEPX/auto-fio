@@ -7,10 +7,10 @@ do_test () {
 	echo -n $IOTYPE\t$IODEPTH\t
 	case $IOTYPE in
 	randread)
-		echo $res|awk 'print $7"\t"$8"\t"$40'
+		echo $res|awk -F ';' '{print $7"\t"$8"\t"$40}'
 		;;
 	randwrite)
-		echo $res|awk 'print $48"\t"$49"\t"$81'
+		echo $res|awk -F ';' '{print $48"\t"$49"\t"$81}'
 		;;
 	*)
 		echo bad call
