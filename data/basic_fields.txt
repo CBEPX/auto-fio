@@ -1,0 +1,10 @@
+read
+7		bandwidth
+8		IOPS
+40		Total latency (avg)
+
+write:
+48			bandwidth
+49			IOPS
+81			Total latency (avg)
+	
