@@ -4,13 +4,13 @@ do_test () {
 	export IODEPTH=$2
 	export IOTYPE=$1
 	res=`fio auto.ini --minimal`
-	echo -en "$IOTYPE\t$IODEPTH\t"
+	echo -en "$IODEPTH;"
 	case $IOTYPE in
 		randread)
-			echo $res|awk -F ';' '{print $7"\t"$8"\t"$40}'
+			echo $res|awk -F ';' '{print $7";"$8";"$40}'
 			;;
 		randwrite)
-			echo $res|awk -F ';' '{print $48"\t"$49"\t"$81}'
+			echo $res|awk -F ';' '{print $48";"$49";"$81}'
 			;;
 		*)
 			echo bad call
@@ -21,13 +21,15 @@ do_test () {
 if test -x `which fio`;
 then
 	#write tests
-	for iodepth in `seq 1 32` 48 64 96 128 192 256;
+	echo "iodepth;bandwidth;IOPS;latency"
+	for iodepth in `seq 1 36`;
 	do
 		do_test randwrite $iodepth $1.write
 	done
 
 	#read tests
-	for iodepth in `seq 1 32` 48 64 96 128 192 256;
+	echo "iodepth;bandwidth;IOPS;latency"
+	for iodepth in `seq 1 36`;
 	do
 		do_test randread $iodepth $2.read
 	done
